@@ -29,6 +29,7 @@ jobs:
         run: |
             wget "https://github.com/anchore/syft/releases/download/v0.98.0/syft_0.98.0_linux_amd64.tar.gz" -O "/tmp/syft_0.98.0_linux_amd64.tar.gz"
             tar --no-same-owner -xzf "/tmp/syft_0.98.0_linux_amd64.tar.gz"  
+            syft ... --catalogers "+sbom-cataloger"
       - name: Upload artefacts
         uses: actions/github-script@v6
         with:
