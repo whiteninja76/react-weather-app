@@ -16,14 +16,14 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            mkdir release
+            
             const release = await github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: "${{ github.ref_name }}",
               generate_release_notes: true,
             });
-
-            const scanManifestFile = "test-${{ github.ref_name }}.json";
 
           debug: true
           result-encoding: "json"
