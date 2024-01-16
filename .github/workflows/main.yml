@@ -14,7 +14,7 @@ jobs:
           submodules: recursive
       - name: Create release folder
         run: |
-          mkdir -p release && rsync -r . --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release
+          mkdir -p release && rsync -r . --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release && ls release
       - name: Create a release zip
         uses: actions/github-script@v6
         with:
