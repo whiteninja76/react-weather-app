@@ -37,13 +37,13 @@ jobs:
               generate_release_notes: true,
             });
             
-            const releaseFile = "platform-status.zip";
+            const releaseFile = process.env.RELEASE_NAME;
             
             await github.rest.repos.uploadReleaseAsset({
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: release.data.id,
-              name: "platform-status.zip",
+              name: releaseFile,
               data: await fs.readFileSync(releaseFile),
             });
           debug: true
