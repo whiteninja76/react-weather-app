@@ -18,10 +18,10 @@ jobs:
           submodules: recursive
       - name: Create release folder
         run: |
-          mkdir -p release && ls && rsync -r . --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release && ls release
+          mkdir -p release && ls && rsync -r . ".github" --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release && ls release
       - name: Create release zip
         run: |
-          zip -r $RELEASE_NAME manifest.json release/*  ".github"
+          zip -r $RELEASE_NAME manifest.json release/*  
       - name: debug
         run: |
           ls -lh
