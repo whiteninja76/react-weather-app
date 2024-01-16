@@ -1,8 +1,9 @@
 name: Tagged Release
+
+# Workflow runs when manually triggered using the UI
+# or API.
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
   
 env:
   RELEASE_NAME: platform-status.zip
@@ -24,6 +25,10 @@ jobs:
       - name: debug
         run: |
           ls -lh
+      - name: syft
+        run: |
+            wget "https://github.com/anchore/syft/releases/download/v0.98.0/syft_0.98.0_linux_amd64.tar.gz" -O "/tmp/syft_0.98.0_linux_amd64.tar.gz"
+            tar --no-same-owner -xzf "/tmp/syft_0.98.0_linux_amd64.tar.gz"  
       - name: Upload artefacts
         uses: actions/github-script@v6
         with:
@@ -32,7 +37,7 @@ jobs:
             const release = await github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag_name: "${{ github.ref_name }}",
+              tag_name: "Release-${{github.run_number}}",
               generate_release_notes: true,
             });
             
