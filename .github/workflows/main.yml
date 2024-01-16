@@ -33,7 +33,7 @@ jobs:
               repo: context.repo.repo,
               release_id: release.data.id,
               name: "platform-status.zip",
-              data: "platform-status.zip",
+              data: platform-status.zip,
             });
           debug: false
           result-encoding: "json"
