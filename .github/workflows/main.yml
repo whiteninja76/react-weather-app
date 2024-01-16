@@ -36,7 +36,7 @@ jobs:
               repo: context.repo.repo,
               release_id: release.data.id,
               name: "platform-status.zip",
-              data: '@${releaseFile}',
+              data: `@${releaseFile}`,
             });
           debug: false
           result-encoding: "json"
