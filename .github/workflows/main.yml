@@ -39,6 +39,6 @@ jobs:
             #   name: sbomFile,
             #   data: `@${sbomFile}`,
             # });
-          debug: false
+          debug: true
           result-encoding: "json"
  
