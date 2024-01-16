@@ -7,6 +7,7 @@ on:
   
 env:
   RELEASE_NAME: platform-status.zip
+  SBOM_NAME: platform-status-sbom.json
 
 jobs:
   release:
@@ -21,14 +22,16 @@ jobs:
           mkdir -p release && ls && rsync -r . ".github" --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release && ls release
       - name: Create release zip
         run: |
-          zip -r $RELEASE_NAME manifest.json release/*  
-      - name: debug
-        run: |
-          ls -lh
+          zip -r $RELEASE_NAME manifest.json release/*
       - name: syft
         uses: anchore/sbom-action@v0
         with:
           path: ./
+          format: cyclonedx-json  
+          output-file: $SBOM_NAME
+      - name: debug
+        run: |
+          ls -lh
       - name: Upload artefacts
         uses: actions/github-script@v6
         with:
