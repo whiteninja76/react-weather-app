@@ -28,7 +28,7 @@ jobs:
         with:
           path: ./
           format: cyclonedx-json  
-          output-file: "${SBOM_NAME}"
+          output-file: $SBOM_NAME
       - name: debug
         run: |
           ls -lh
