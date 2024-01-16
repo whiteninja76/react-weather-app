@@ -1,0 +1,10 @@
+{
+  "name": "platform-status",
+  "version": "0.0.1",
+  "sbom": {
+    "path": "release/platform-status-sbom.json",
+    "type": "cyclonedx",
+    "format": "json"
+  },
+  "sourcePath": "release"
+}
