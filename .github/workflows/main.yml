@@ -21,7 +21,7 @@ jobs:
           mkdir -p release && ls && rsync -r . --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release && ls release
       - name: Create release zip
         run: |
-          zip -r platform-status.zip manifest.json release/*  ".github"
+          zip -r $RELEASE_NAME manifest.json release/*  ".github"
       - name: Create a release and upload built artefacts
         uses: actions/github-script@v6
         with:
