@@ -7,7 +7,6 @@ on:
   
 env:
   RELEASE_NAME: platform-status.zip
-  SBOM_NAME: platform-status-sbom.json
 
 jobs:
   release:
@@ -28,7 +27,7 @@ jobs:
         with:
           path: ./
           format: cyclonedx-json  
-          output-file: $SBOM_NAME
+          output-file: "platform-status-sbom.json"
       - name: debug
         run: |
           ls -lh
