@@ -43,7 +43,7 @@ jobs:
               repo: context.repo.repo,
               release_id: release.data.id,
               name: "platform-status.zip",
-              data: `@${releaseFile}`,
+              data: await fs.readFileSync(releaseFile),
             });
           debug: true
           result-encoding: "json"
