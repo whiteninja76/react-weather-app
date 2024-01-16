@@ -1,0 +1,49 @@
+name: Scan manifest build and release
+on:
+  push:
+    tags:
+      - "*" # build on all tags
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build with node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+      - run: npm ci
+      # - run: npm run build
+      # - run: npm run build:sbom
+      # - name: Create a release and upload built artefacts
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       const release = await github.rest.repos.createRelease({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         tag_name: "${{ github.ref_name }}",
+      #         generate_release_notes: true,
+      #       });
+
+      #       const scanManifestFile = "scan-manifest-${{ github.ref_name }}.json";
+      #       const sbomFile = "scan-manifest-sbom.json";
+
+      #       await github.rest.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: scanManifestFile,
+      #         data: `@build/${scanManifestFile}`,
+      #       });
+      #       await github.rest.repos.uploadReleaseAsset({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         release_id: release.data.id,
+      #         name: sbomFile,
+      #         data: `@${sbomFile}`,
+      #       });
+      #     debug: false
+      #     result-encoding: "json"
