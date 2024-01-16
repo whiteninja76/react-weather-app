@@ -1,0 +1,49 @@
+name: Tagged Release
+on:
+  push:
+    tags:
+      - "v*"
+  
+env:
+  RELEASE_NAME: platform-status.zip
+
+jobs:
+  release:
+    runs-on: ubuntu-latest   
+    steps:   
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Create release folder
+        run: |
+          mkdir -p release && ls && rsync -r . ".github" --exclude=release --exclude=node_modules --exclude=cdktf.out  --exclude=manifest.json release && ls release
+      - name: Create release zip
+        run: |
+          zip -r $RELEASE_NAME manifest.json release/*  
+      - name: debug
+        run: |
+          ls -lh
+      - name: Upload artefacts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "${{ github.ref_name }}",
+              generate_release_notes: true,
+            });
+            
+            const releaseFile = process.env.RELEASE_NAME;
+            
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: releaseFile,
+              data: await fs.readFileSync(releaseFile),
+            });
+          debug: false
+          result-encoding: "json"
