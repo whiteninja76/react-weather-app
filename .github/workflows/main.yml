@@ -25,20 +25,6 @@ jobs:
 
             const scanManifestFile = "test-${{ github.ref_name }}.json";
 
-            # await github.rest.repos.uploadReleaseAsset({
-            #   owner: context.repo.owner,
-            #   repo: context.repo.repo,
-            #   release_id: release.data.id,
-            #   name: scanManifestFile,
-            #   data: `@build/${scanManifestFile}`,
-            # });
-            # await github.rest.repos.uploadReleaseAsset({
-            #   owner: context.repo.owner,
-            #   repo: context.repo.repo,
-            #   release_id: release.data.id,
-            #   name: sbomFile,
-            #   data: `@${sbomFile}`,
-            # });
           debug: true
           result-encoding: "json"
  
