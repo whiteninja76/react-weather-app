@@ -18,5 +18,15 @@ jobs:
       - name: Create release zip
         run: |
           zip -r platform-status.zip manifest.json release/*  ".github"
+      - name: Create a release and upload built artefacts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "${{ github.ref_name }}",
+              generate_release_notes: true,
+            });
 
  
